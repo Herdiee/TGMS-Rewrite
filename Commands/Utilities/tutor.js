@@ -7,6 +7,11 @@ const chalk = require('chalk');
 const config = require("../../config.json");
 const abusePrevention = new Set();
 
+errorembed = new MessageEmbed()
+    .setTitle("Error")
+    .setDescription("To prevent abuse, the tutor command has a 10 minute cooldown.")
+    .setColor("#ff0000")
+
 module.exports = {
     name: 'tutor',
     description: 'Request help from a tutor',
@@ -16,10 +21,6 @@ module.exports = {
         // If the author used the command recently
         if (abusePrevention.has(message.author.id)) {
             // Reply with an error message
-            errorembed = new MessageEmbed()
-            .setTitle("Error")
-            .setDescription("To prevent abuse, the tutor command has a 10 minute cooldown.")
-            .setColor("#ff0000")
             message.reply(errorembed)
 
         // If the author has not used the command recently

@@ -35,7 +35,7 @@ channelsuccessfullyset = new MessageEmbed()
 .setColor("#2ECC71")
 
 module.exports = {
-        name: "setlogchamme;",
+        name: "setlogchammel",
         category: "Configure",
         aliases: [''],
         description: "Sets A Channel Where The Bot Can Send Moderation Logs!",
