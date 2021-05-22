@@ -1,43 +1,20 @@
-// Dependencies
-const Discord = require("discord.js");
-const Enmap = require("enmap");
-const fs = require("fs");
-const chalk = require('chalk');
+const Discord = require("discord.js");						// API Wrapper
+const Enmap = require("enmap");								// Data Storage
+const fs = require("fs");									// JS File System
+const chalk = require('chalk');								// Colored Logs
 
-// Additional Dependencies
 const client = new Discord.Client();
 const config = require("./config.json");
 client.config = config;
 client.commands = new Enmap();
 client.cooldowns = new Discord.Collection();
 
-// Command Handler
-fs.readdirSync('./Commands').forEach(dirs => {
-    const commands = fs.readdirSync(`./Commands/${dirs}`).filter(files => files.endsWith('.js'));
-    for (const file of commands) {
-        const command = require(`./Commands/${dirs}/${file}`);
-        console.log(chalk.green(`Loading command ${file}`));
-        let props = require(`./Commands/${dirs}/${file}`);
-        let commandName = file.split(".")[0];
-        client.commands.set(commandName, props);
-	};
+["command","event"].forEach(handler => {					// Command and Event Handler
+	require(`./Handlers/${handler}`)(client);
 });
 
-// Event Handler
-fs.readdir("./Events/", (err, files) => {
-	if (err) return console.error(err);
-	files.forEach(file => {
-	  const event = require(`./Events/${file}`);
-	  console.log(chalk.green(`Loading Event ${file}`));
-	  let eventName = file.split(".")[0];
-	  client.on(eventName, event.bind(null, client));
-	});
-});
-
-// Auto-Post Messages in an announcement channel
-client.on('message', async message => {
-	// Make sure the bot isn't the one sending the message in the channel
-	if (message.author.id == client.user.id) return;
+client.on('message', async message => {							// Auto-Post Messages in an announcement channel
+	if (message.author.id == client.user.id) return;			// Make sure the bot isn't the author
 	try {
 		if (message.channel.type === 'news') {
   		await message.crosspost()
@@ -48,5 +25,4 @@ client.on('message', async message => {
 	}
 });
 
-// Log in using the bot token
-client.login(config.token);
+client.login(config.token);										// Log in using the bot token

@@ -1,11 +1,9 @@
-// Dependencies
-const Discord = require('discord.js');
-const { MessageEmbed } = require('discord.js');
-const chalk = require('chalk');
+const Discord = require('discord.js');                                                      // Discord API Wrapper
+const { MessageEmbed } = require('discord.js');                                             // Required for embed creation
+const chalk = require('chalk');                                                             // Colored Terminal
 
-// Cooldown set and configuration file path
-const config = require("../../config.json");
-const abusePrevention = new Set();
+const config = require("../../config.json");                                                // Config File
+const abusePrevention = new Set();                                                          // New set for command cooldown
 
 errorembed = new MessageEmbed()
     .setTitle("Error")
@@ -18,26 +16,21 @@ module.exports = {
     aliases: ['helpme','needhelp','sendnerd','huw'],
     run: async (client, message, args) => {
         
-        // If the author used the command recently
-        if (abusePrevention.has(message.author.id)) {
-            // Reply with an error message
-            message.reply(errorembed)
+        if (abusePrevention.has(message.author.id)) {                               // If the author used the command recently
+            message.reply(errorembed)                                               // Reply with an error message
+        } 
 
-        // If the author has not used the command recently
-        } else {
-        // Get the message arguments
-        const msgcontent = args.slice(0).join(' ');
-        // Define the help message
-        let helpmsg = "```\n" + msgcontent + "\n```"
-        // Send the message to the channel
-        message.channel.send(`<@&${config.tutor_role}> please help ${message.author} with  ${helpmsg}`)
- 
-        // Add the message author to the set
-        abusePrevention.add(message.author.id);
-        setTimeout(() => {
-           // Remove the user from the set after 10 mninutes
-           abusePrevention.delete(message.author.id);
-         }, 600000);
+        try {                                                                       // If the author has not used the command recently
+            const msgcontent = args.slice(0).join(' ');                             // Get the message arguments    
+            let helpmsg = "```\n" + msgcontent + "\n```"                            // Define the help message
+            message.channel.send(`<@&${config.tutor_role}> please help ${message.author} with  ${helpmsg}`)
+    
+            abusePrevention.add(message.author.id);                                 // Add the message author to the set
+            setTimeout(() => {
+            abusePrevention.delete(message.author.id);                              // Remove the user from the set after 10 mninutes
+            }, 600000);    
+        } catch (error) {
+            console.log(error.message)
         }
 }
 }

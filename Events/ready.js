@@ -1,5 +1,4 @@
-// Dependencies
-const chalk = require('chalk');
+const chalk = require('chalk');                                                 // Colored Logging
 
 module.exports = (client) => {
     console.log(chalk.cyan('I am ready to serve you!'));
