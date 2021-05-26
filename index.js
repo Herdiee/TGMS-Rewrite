@@ -1,12 +1,11 @@
 const Discord = require("discord.js");						// API Wrapper
-const Enmap = require("enmap");								// Data Storage
 const fs = require("fs");									// JS File System
 const chalk = require('chalk');								// Colored Logs
 
 const client = new Discord.Client();
 const config = require("./config.json");
 client.config = config;
-client.commands = new Enmap();
+client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
 
 ["command","event"].forEach(handler => {					// Command and Event Handler
