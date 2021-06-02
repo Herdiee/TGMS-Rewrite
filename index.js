@@ -1,6 +1,6 @@
-const Discord = require("discord.js");						// API Wrapper
-const fs = require("fs");									// JS File System
-const chalk = require('chalk');								// Colored Logs
+const Discord = require("discord.js");
+const fs = require("fs");
+const chalk = require('chalk');
 
 const client = new Discord.Client();
 const config = require("./config.json");
@@ -8,12 +8,12 @@ client.config = config;
 client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
 
-["command","event"].forEach(handler => {					// Command and Event Handler
+["command","event"].forEach(handler => {
 	require(`./Handlers/${handler}`)(client);
 });
 
-client.on('message', async message => {							// Auto-Post Messages in an announcement channel
-	if (message.author.id == client.user.id) return;			// Make sure the bot isn't the author
+client.on('message', async message => {
+	if (message.author.id == client.user.id) return;
 	try {
 		if (message.channel.type === 'news') {
   		await message.crosspost()
@@ -24,4 +24,4 @@ client.on('message', async message => {							// Auto-Post Messages in an announ
 	}
 });
 
-client.login(config.token);										// Log in using the bot token
+client.login(config.token);

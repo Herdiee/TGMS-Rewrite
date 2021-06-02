@@ -1,20 +1,20 @@
-const db = require("quick.db")												// Database
-const { MessageEmbed } = require("discord.js")								// Required to create embeds
-const chalk = require('chalk');												// Colored Logs
-const moment = require('moment');											// Time Formatting
+const db = require("quick.db")
+const { MessageEmbed } = require("discord.js")
+const chalk = require('chalk');
+const moment = require('moment');
 
 module.exports = async (client, member, guild) => {
 	try {
-		let guildcount = member.guild.memberCount							// Get the total number of members in the guild
+		let guildcount = member.guild.memberCount
 
-		let modlogchannel = db.fetch(`logs_${member.guild.id}`)				// Fetch the channel to send the member log join log.
-		if(modlogchannel === null) return;									// If there is no logging channel, do nothing.
+		let modlogchannel = db.fetch(`logs_${member.guild.id}`)
+		if(modlogchannel === null) return;
 
-		let joinchannel = db.fetch(`joinchannel_${member.guild.id}`)		// Fetch the welcome channel
-		if(joinchannel === null) return;									// If there is no welcome channel, do nothing.
+		let joinchannel = db.fetch(`joinchannel_${member.guild.id}`)
+		if(joinchannel === null) return;
 
-        datecreated = moment(member.user.createdAt).format("DD/MM/YYYY LTS")// Time formatting
-		const logembed = new MessageEmbed()									// Embed creation for logging
+        datecreated = moment(member.user.createdAt).format("DD/MM/YYYY LTS")
+		const logembed = new MessageEmbed()
 		.setTitle(`Member joined!`)
 		.setDescription(`<@${member.id}> ${guildcount}th to join! \n Account Created ${datecreated}`)
 		.setColor(3066993)
@@ -23,10 +23,10 @@ module.exports = async (client, member, guild) => {
 		.setTimestamp();
 
 		let joinmsg = `${member.user} has joined the server B)`				
-		client.channels.cache.get(joinchannel).send(joinmsg)				// Set the join message
-		client.channels.cache.get(modlogchannel).send(logembed)				// Send the logging embed
+		client.channels.cache.get(joinchannel).send(joinmsg)
+		client.channels.cache.get(modlogchannel).send(logembed)
 
-	} catch {																// Error Handling
+	} catch {
 		console.log(chalk.red("Something went wrong in the guildMemberAdd Event!"))
 	}
 

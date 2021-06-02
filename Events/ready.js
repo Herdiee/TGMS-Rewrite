@@ -1,4 +1,4 @@
-const chalk = require('chalk');                                                 // Colored Logging
+const chalk = require('chalk');
 
 module.exports = (client) => {
     console.log(chalk.cyan('I am ready to serve you!'));

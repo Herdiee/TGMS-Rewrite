@@ -1,10 +1,10 @@
-const fs = require("fs");                   // Javascript File System
-const chalk = require('chalk');             // Colored Terminal
+const fs = require("fs");
+const chalk = require('chalk');
 
 module.exports = (client) => {
     fs.readdirSync(`./commands/`).forEach(dir => {
-        const commands = fs.readdirSync(`./commands/${dir}`).filter(file => file.endsWith('.js'));      // Filter files by ending
-        for (const file of commands) {                                                                  // Iterate through files
+        const commands = fs.readdirSync(`./commands/${dir}`).filter(file => file.endsWith('.js')); 
+        for (const file of commands) {
             let command = require(`../commands/${dir}/${file}`);
             console.log(chalk.green(`Loading command ${file}`));
             let commandName = file.split(".")[0];

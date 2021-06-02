@@ -1,5 +1,5 @@
-const fs = require("fs");                                       // Javascript File System
-const chalk = require('chalk');                                 // Colored Terminal
+const fs = require("fs");
+const chalk = require('chalk');
 
 module.exports = (client) => {
     fs.readdir(`./events/`, (err, files) => {
