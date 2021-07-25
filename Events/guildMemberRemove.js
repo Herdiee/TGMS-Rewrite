@@ -4,7 +4,10 @@ const moment = require('moment');
 
 module.exports = async (client, member, guild) => {
 	try {
+
+		/*
 		let guildcount = member.guild.memberCount
+		*/
 
 		const logembed = new MessageEmbed()
 			.setTitle(`Member Left!`)

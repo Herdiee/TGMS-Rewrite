@@ -1,7 +1,0 @@
-{
-    "prefix" : "^",
-    "token": "KEEP-SECRET",
-    "tutor_role": "1234",
-    "modlog_channel": "1234",
-    "welcome_channel": "1234"
-}

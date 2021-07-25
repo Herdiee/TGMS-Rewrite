@@ -1,9 +1,8 @@
 const Discord = require("discord.js");
-const fs = require("fs");
 const chalk = require('chalk');
 
 const client = new Discord.Client();
-const config = require("./config.json");
+const config = require("./Resources/config.json");
 client.config = config;
 client.commands = new Discord.Collection();
 
